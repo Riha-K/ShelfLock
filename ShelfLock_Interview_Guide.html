@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShelfLock — Interview Guide | Riha Sanjay Kokode</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--surface:#111318;--card:#161a22;--border:#232836;--text:#dde3f0;--muted:#6b7694;--bright:#fff;--blue:#5b9cf6;--gold:#f0b429;--green:#3ecf8e;--red:#f04e4e;--purple:#b57bee;--teal:#38d9d9;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Lora',Georgia,serif;font-size:15px;line-height:1.8;}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(10,12,16,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.topbar-inner{display:flex;align-items:center;padding:0 24px;overflow-x:auto;scrollbar-width:none;}
+.topbar-inner::-webkit-scrollbar{display:none;}
+.topbar-brand{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--gold);white-space:nowrap;padding:14px 20px 14px 0;border-right:1px solid var(--border);margin-right:12px;}
+.topbar a{display:block;padding:13px 12px;text-decoration:none;color:var(--muted);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap;border-bottom:2px solid transparent;text-transform:uppercase;}
+.topbar a:hover{color:var(--bright);border-color:var(--gold);}
+.hero{background:linear-gradient(135deg,#0a0c10 0%,#111918 40%,#101520 100%);padding:56px 48px 44px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(62,207,142,.1) 0%,transparent 65%);pointer-events:none;}
+.hero-eyebrow{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,5vw,3.2rem);font-weight:800;color:var(--bright);line-height:1.05;}
+.hero h1 em{font-style:normal;color:var(--green);}
+.hero-sub{margin-top:12px;color:var(--muted);font-size:14px;max-width:760px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.hero-tag{background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.25);color:var(--green);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+.main{max-width:1000px;margin:0 auto;padding:0 28px 100px;}
+.section{padding-top:60px;}
+[id]{scroll-margin-top:54px;}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:var(--bright);margin-bottom:6px;line-height:1.1;}
+.sec-intro{color:#a8b4cc;font-size:14.5px;line-height:1.85;margin-bottom:24px;max-width:840px;border-left:3px solid var(--border);padding-left:16px;}
+.sec-intro strong{color:var(--bright);}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.concept-grid.three-col{grid-template-columns:repeat(3,1fr);}
+@media(max-width:680px){.concept-grid,.concept-grid.three-col,.six-grid,.split-two{grid-template-columns:1fr;}}
+.concept-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:20px;}
+.concept-card.gold{border-top-color:var(--gold);}
+.concept-card.green{border-top-color:var(--green);}
+.concept-card.teal{border-top-color:var(--teal);}
+.concept-card.purple{border-top-color:var(--purple);}
+.concept-card.red{border-top-color:var(--red);}
+.concept-card h4{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--bright);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.concept-card p,.concept-card ul{color:#9daabf;font-size:13px;line-height:1.75;}
+.concept-card p+p{margin-top:8px;}
+.concept-card ul{list-style:none;}
+.concept-card ul li{padding:2px 0 2px 14px;position:relative;}
+.concept-card ul li::before{content:'›';position:absolute;left:0;color:var(--gold);}
+.concept-card strong{color:var(--bright);}
+.flow-container{display:flex;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.flow-step{flex:1;min-width:90px;background:rgba(62,207,142,.07);border:1px solid rgba(62,207,142,.22);border-radius:8px;padding:12px 8px;text-align:center;}
+.flow-icon{font-size:1.3rem;margin-bottom:5px;}
+.flow-name{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--bright);margin-bottom:3px;}
+.flow-desc{font-size:10px;color:var(--muted);line-height:1.4;}
+.flow-arrow{align-self:center;color:var(--gold);font-size:1.1rem;padding:0 4px;flex-shrink:0;}
+.code-block{background:#0d1117;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#79c0ff;margin-top:8px;overflow-x:auto;white-space:pre;}
+.comparison-table{overflow-x:auto;margin:14px 0;}
+.comparison-table table{width:100%;border-collapse:collapse;}
+.comparison-table th{background:rgba(91,156,246,.08);color:var(--blue);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.comparison-table td{padding:9px 12px;border-bottom:1px solid rgba(35,40,54,.5);font-size:12.5px;color:#9daabf;vertical-align:top;}
+.comparison-table strong{color:var(--bright);}
+.qa-block{margin:14px 0;}
+.qa{margin-bottom:14px;}
+.q{background:rgba(240,180,41,.07);border:1px solid rgba(240,180,41,.2);border-radius:6px 6px 0 0;padding:11px 16px;font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;color:var(--gold);}
+.a{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;padding:13px 16px;font-size:13px;color:#9daabf;line-height:1.8;}
+.a strong{color:var(--green);}
+.script-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.22);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:18px 22px;margin:14px 0;font-size:14px;color:#c8d4e8;line-height:1.9;font-style:italic;}
+.script-box strong{color:var(--bright);font-style:normal;}
+.highlight-box{background:rgba(240,78,78,.05);border:1px solid rgba(240,78,78,.2);border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:13px;color:#c8a4a4;}
+.highlight-box strong{color:var(--bright);}
+.tip-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.2);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:13px;color:#9dbfb0;}
+.tip-box strong{color:var(--bright);}
+.subsection{margin-bottom:28px;}
+.subsection h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;color:var(--bright);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.scrolltop{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#000;border:none;cursor:pointer;width:42px;height:42px;border-radius:50%;font-size:1.1rem;z-index:999;}
+.six-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+.six-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.six-item .n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);font-weight:600;margin-bottom:4px;}
+.six-item h5{font-family:'Syne',sans-serif;font-size:12px;color:var(--bright);margin-bottom:6px;}
+.six-item p{font-size:12.5px;color:#9daabf;line-height:1.65;}
+.vflow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px 0 24px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 18px;}
+.vflow-step{width:100%;max-width:740px;background:rgba(91,156,246,.07);border:1px solid rgba(91,156,246,.22);border-radius:8px;padding:14px 18px;}
+.vflow-step .vn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);font-weight:600;margin-bottom:4px;}
+.vflow-step h5{font-family:'Syne',sans-serif;font-size:13px;color:var(--bright);margin-bottom:4px;}
+.vflow-step p{font-size:12.5px;color:#9daabf;line-height:1.65;margin:0;}
+.vflow-arrow{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:14px;padding:6px 0;}
+.mermaid{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;}
+.split-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+.stat-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 22px;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;min-width:110px;text-align:center;}
+.stat .num{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--bright);}
+.stat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-family:'Syne',sans-serif;}
+.schema-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+@media(max-width:720px){.schema-grid{grid-template-columns:1fr 1fr;}}
+.schema-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.schema-card h5{font-family:'Syne',sans-serif;font-size:11px;color:var(--blue);margin-bottom:4px;}
+.schema-card p{font-size:11.5px;color:var(--muted);line-height:1.5;}
+</style>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { primaryColor: '#14241f', primaryTextColor: '#dde3f0', primaryBorderColor: '#3ecf8e', lineColor: '#f0b429', secondaryColor: '#161a22', tertiaryColor: '#0d1117' }});
+</script>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">SHELFLOCK</div>
+    <a href="#path">Path</a>
+    <a href="#zero">From Zero</a>
+    <a href="#pitch">Pitch</a>
+    <a href="#arch">Architecture</a>
+    <a href="#schema">Schema</a>
+    <a href="#flow">Reserve/Pay</a>
+    <a href="#locks">Two Locks</a>
+    <a href="#heap">Heap</a>
+    <a href="#oop">OOP</a>
+    <a href="#tech">Tech Why</a>
+    <a href="#files">Files</a>
+    <a href="#honest">Honesty</a>
+    <a href="#qa">Q&amp;A</a>
+    <a href="#improve">Improve</a>
+    <a href="#quick">Quick</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Project Interview Study Guide · From Scratch</div>
+  <h1>ShelfLock<br><em>Concurrent Grocery Inventory</em></h1>
+  <p class="hero-sub">Learn it from zero: why checkout needs a hold, how PostgreSQL row locks stop two buyers taking the same unit, how a C++ min-heap expires unpaid holds, and which design patterns are actually in the repo.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">C++17</span>
+    <span class="hero-tag">PostgreSQL</span>
+    <span class="hero-tag">FOR UPDATE</span>
+    <span class="hero-tag">Threads</span>
+    <span class="hero-tag">Min-heap TTL</span>
+    <span class="hero-tag">Repository</span>
+    <span class="hero-tag">Strategy / Factory</span>
+  </div>
+</div>
+
+<div class="main">
+
+<div id="path" class="section">
+  <div class="sec-label">00</div>
+  <h2 class="sec-title">How to study this (60 minutes)</h2>
+  <p class="sec-intro">Grocery is the story. The engineering is <strong>transactions + a timer thread</strong>. Tesco cares about retail + DBMS. Pace cares about threads, mutexes, heap. Same code, different emphasis.</p>
+  <div class="six-grid">
+    <div class="six-item"><div class="n">10 min</div><h5>From Zero</h5><p>Catalog, stock, hold, reserve, pay, expire. If “hold” is unclear, do not go further.</p></div>
+    <div class="six-item"><div class="n">10 min</div><h5>Pitch + schema</h5><p>Four tables. Point at stock row + holds row.</p></div>
+    <div class="six-item"><div class="n">15 min</div><h5>Reserve SQL</h5><p>BEGIN, FOR UPDATE, decrement, insert hold, COMMIT. Say it without notes.</p></div>
+    <div class="six-item"><div class="n">10 min</div><h5>Two locks + heap</h5><p>Mutex = libpq not thread-safe. Row lock = inventory truth. Heap wakes the expiry worker.</p></div>
+    <div class="six-item"><div class="n">10 min</div><h5>OOP names</h5><p>Repository, store-vs-warehouse strategy, order-state factory — what each file does.</p></div>
+    <div class="six-item"><div class="n">5 min</div><h5>Honesty</h5><p>Restock is not ML. Resume does not claim double-buy tests.</p></div>
+  </div>
+</div>
+
+<div id="zero" class="section">
+  <div class="sec-label">01</div>
+  <h2 class="sec-title">From zero — the grocery problem</h2>
+  <p class="sec-intro">One carton of milk left. Two phones tap Pay at the same time. If both see qty=1, both think they bought it. <strong>ShelfLock holds the unit</strong> for a few seconds while payment finishes. If payment never comes, the hold expires and the milk goes back on the shelf.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card green">
+      <h4>Catalog</h4>
+      <p>The list of products (SKU + name). Example: <code>MILK-1L</code>. Catalog is not the count. It is “what we sell.”</p>
+    </div>
+    <div class="concept-card gold">
+      <h4>Stock</h4>
+      <p>How many units sit at a <strong>location</strong> (store or warehouse). Same SKU can exist in both places.</p>
+    </div>
+    <div class="concept-card">
+      <h4>Hold / reserve</h4>
+      <p>We subtract from stock <strong>now</strong> and remember “this qty belongs to checkout #17 until time T.” Nobody else can take those units.</p>
+    </div>
+    <div class="concept-card purple">
+      <h4>Pay / commit</h4>
+      <p>Payment succeeded. Hold becomes a paid order. Stock stays down. That sale is final.</p>
+    </div>
+    <div class="concept-card red">
+      <h4>Expire / release</h4>
+      <p>Payment did not happen in time. Hold dies. Qty is added back to stock.</p>
+    </div>
+    <div class="concept-card teal">
+      <h4>SKU</h4>
+      <p>Stock-keeping unit. The product id. All inventory math is per SKU + location.</p>
+    </div>
+  </div>
+
+  <div class="tip-box"><strong>Why not just UPDATE stock at the end?</strong> Between “add to cart” and “pay,” another buyer can take the last unit. The hold is the lock in business language. <code>SELECT … FOR UPDATE</code> is the lock in database language.</div>
+</div>
+
+<div id="pitch" class="section">
+  <div class="sec-label">02</div>
+  <h2 class="sec-title">Elevator pitch (45–60 seconds)</h2>
+  <div class="script-box">
+    “I built <strong>ShelfLock</strong>, a C++ and PostgreSQL inventory service for grocery checkout. Catalog and stock live in Postgres. On reserve I open a transaction, lock the stock row with <code>SELECT FOR UPDATE</code>, decrement quantity, and insert a timed hold. A worker thread plus a mutex-protected min-heap expires unpaid holds and puts stock back. Pay commits the hold into a paid order. Fulfilment is a strategy: store-first or warehouse. Order states come from a factory. I log events, count metrics, and suggest restock from paid-order history.”
+  </div>
+  <div class="six-grid">
+    <div class="six-item"><div class="n">01</div><h5>Problem</h5><p>Concurrent checkout over the same SKU without two people taking stock the database no longer has.</p></div>
+    <div class="six-item"><div class="n">02</div><h5>Architecture</h5><p>C++ service → repository (libpq) → Postgres. Expiry thread + heap. Checkout worker threads in the demo.</p></div>
+    <div class="six-item"><div class="n">03</div><h5>Why Postgres</h5><p>Durability, transactions, row locks, indexes. Inventory must survive process restart. MatchBook does not need that.</p></div>
+    <div class="six-item"><div class="n">04</div><h5>What I built</h5><p>Schema, reserve/commit/release, heap expiry, two fulfilment strategies, state factory, log/metrics, restock hint.</p></div>
+    <div class="six-item"><div class="n">05</div><h5>Challenges</h5><p>libpq connections are not thread-safe. Stale heap entries after pay. Picking store vs warehouse.</p></div>
+    <div class="six-item"><div class="n">06</div><h5>Evaluation</h5><p>Demo: two pays + one expiry on MILK-1L. Metrics line + restock print.</p></div>
+  </div>
+</div>
+
+<div id="arch" class="section">
+  <div class="sec-label">03</div>
+  <h2 class="sec-title">Architecture</h2>
+  <pre class="mermaid">
+flowchart TB
+  subgraph demo [main.cpp demo]
+    W1[thread: reserve + pay]
+    W2[thread: reserve + pay]
+    W3[thread: reserve + sleep past TTL]
+  end
+  RS[ReservationService]
+  Strat[FulfillmentStrategy store-first]
+  Heap[HoldHeap min-heap + worker thread]
+  Repo[InventoryRepository mutex around PGconn]
+  Log[Logger]
+  Met[Metrics atomics]
+  PG[(PostgreSQL products stock holds orders)]
+  W1 --> RS
+  W2 --> RS
+  W3 --> RS
+  RS --> Strat
+  RS --> Repo
+  RS --> Heap
+  RS --> Log
+  RS --> Met
+  Heap -->|expire callback| RS
+  Repo --> PG
+  </pre>
+
+  <div class="flow-container">
+    <div class="flow-step"><div class="flow-icon">1</div><div class="flow-name">Pick location</div><div class="flow-desc">strategy on rows with enough qty</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-icon">2</div><div class="flow-name">Reserve</div><div class="flow-desc">FOR UPDATE, qty--, insert hold</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-icon">3</div><div class="flow-name">Heap push</div><div class="flow-desc">hold_id + expiry time</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-icon">4</div><div class="flow-name">Pay or expire</div><div class="flow-desc">commit order / restore stock</div></div>
+  </div>
+</div>
+
+<div id="schema" class="section">
+  <div class="sec-label">04</div>
+  <h2 class="sec-title">Schema (draw this)</h2>
+  <div class="schema-grid">
+    <div class="schema-card"><h5>products</h5><p>sku PK, name. Catalog.</p></div>
+    <div class="schema-card"><h5>stock</h5><p>sku + location_id PK, type store|warehouse, qty ≥ 0. <strong>This row is locked.</strong></p></div>
+    <div class="schema-card"><h5>holds</h5><p>hold_id, sku, location, qty, status reserved|committed|released|expired, expires_at.</p></div>
+    <div class="schema-card"><h5>orders</h5><p>order_id, hold_id, sku, qty, state paid|expired|…</p></div>
+  </div>
+  <div class="comparison-table">
+    <table>
+      <tr><th>Index</th><th>Why</th></tr>
+      <tr><td><code>idx_stock_sku</code></td><td>Find all locations for a SKU when reserving.</td></tr>
+      <tr><td><code>idx_holds_status_expires</code></td><td>Lookup reserved holds by deadline (useful if you scan DB; heap is the in-process timer).</td></tr>
+      <tr><td><code>idx_orders_sku_state</code></td><td>Sum paid qty for restock suggestion.</td></tr>
+    </table>
+  </div>
+  <div class="tip-box">Seed data: milk, bread, eggs at <code>store-wadsa</code> and <code>wh-nagpur</code>. Demo only uses <code>MILK-1L</code>.</div>
+</div>
+
+<div id="flow" class="section">
+  <div class="sec-label">05</div>
+  <h2 class="sec-title">Reserve, pay, expire — SQL you must recite</h2>
+
+  <div class="subsection">
+    <h3>Reserve (hot path)</h3>
+    <div class="code-block">BEGIN
+SELECT qty FROM stock
+ WHERE sku=$1 AND location_id=$2
+ FOR UPDATE;                 -- lock this row until COMMIT
+-- if qty &lt; requested: ROLLBACK
+UPDATE stock SET qty = qty - $n
+ WHERE sku=$1 AND location_id=$2;
+INSERT INTO holds (..., status,'reserved', expires_at=NOW()+ttl)
+ RETURNING hold_id;
+COMMIT</div>
+    <p class="sec-intro" style="margin-top:12px;">Other transactions that want the same milk row <strong>wait</strong> on FOR UPDATE. They will see the new qty after we commit. That is how two checkouts do not both decrement from 1 to 0 independently.</p>
+  </div>
+
+  <div class="subsection">
+    <h3>Pay</h3>
+    <p>Lock the hold row. If status is still <code>reserved</code>, set it <code>committed</code>, insert <code>orders</code> with state <code>paid</code>. Stock was already reduced at reserve — do not reduce again.</p>
+  </div>
+
+  <div class="subsection">
+    <h3>Expire / release</h3>
+    <p>If hold is still reserved: set status expired (or released), <code>stock.qty += hold.qty</code>, write an orders row for audit. If pay already committed, this function returns false and does nothing. That is how a late timer does not undo a paid sale.</p>
+  </div>
+
+  <div class="subsection">
+    <h3>Demo in main.cpp (TTL = 3 seconds)</h3>
+    <div class="comparison-table">
+      <table>
+        <tr><th>Thread</th><th>Does</th><th>Expect</th></tr>
+        <tr><td>1</td><td>reserve milk, sleep 200ms, pay</td><td>committed</td></tr>
+        <tr><td>2</td><td>reserve milk, pay immediately</td><td>committed</td></tr>
+        <tr><td>3</td><td>reserve milk, sleep 4s, never pay</td><td>expired by heap worker</td></tr>
+      </table>
+    </div>
+    <p class="sec-intro">Metrics should show reserved=3, committed=2, expired=1 (if stock was enough). Then restock prints SKUs whose on-hand is below paid-demand + 4.</p>
+  </div>
+</div>
+
+<div id="locks" class="section">
+  <div class="sec-label">06</div>
+  <h2 class="sec-title">Two locks — do not mix them up</h2>
+  <div class="split-two">
+    <div class="concept-card gold">
+      <h4>C++ mutex on PGconn</h4>
+      <p>libpq’s connection object is <strong>not thread-safe</strong>. One <code>PGconn</code>, many checkout threads → mutex around every query. This lock does <em>not</em> protect inventory by itself. It only protects the client library.</p>
+    </div>
+    <div class="concept-card green">
+      <h4>Postgres row lock</h4>
+      <p><code>FOR UPDATE</code> is the <strong>correctness</strong> lock. Even if two different processes (two app servers) hit the same SKU, the database serialises those transactions.</p>
+    </div>
+  </div>
+  <div class="highlight-box"><strong>Interview gold:</strong> “If I only used a mutex, two machines would still double-spend. If I only used FOR UPDATE but shared one PGconn without a mutex, libpq could corrupt packets. I need both, for different reasons.”</div>
+</div>
+
+<div id="heap" class="section">
+  <div class="sec-label">07</div>
+  <h2 class="sec-title">Min-heap expiry thread</h2>
+  <p class="sec-intro">A hold has a deadline. Scanning the DB every second works but is wasteful. We push <code>(expiry_time, hold_id)</code> into a min-heap. One worker thread sleeps until the soonest deadline.</p>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <h4>Why a heap</h4>
+      <p>Need the <strong>earliest</strong> expiry next. <code>priority_queue</code> with <code>greater</code> is a min-heap. Push is O(log n). Peek min is O(1).</p>
+    </div>
+    <div class="concept-card gold">
+      <h4>condition_variable</h4>
+      <p>If the heap is empty, wait. If a new hold expires sooner than the current top, wake and reschedule <code>wait_until</code>.</p>
+    </div>
+    <div class="concept-card teal">
+      <h4>Stale entries</h4>
+      <p>Paid holds stay in the heap until their old time. When the timer fires, <code>release</code> sees status ≠ reserved and returns false. Harmless no-op.</p>
+    </div>
+    <div class="concept-card purple">
+      <h4>steady_clock</h4>
+      <p>Monotonic clock for “sleep 3 seconds.” Wall clock can jump. Expiry in SQL still uses <code>NOW()+interval</code> for the row.</p>
+    </div>
+  </div>
+</div>
+
+<div id="oop" class="section">
+  <div class="sec-label">08</div>
+  <h2 class="sec-title">OOP — only what the code really does</h2>
+  <div class="concept-grid three-col">
+    <div class="concept-card">
+      <h4>Repository</h4>
+      <p><code>InventoryRepository</code> is the only file that talks SQL. Service does not embed queries. That is the repository pattern: swap the DB without rewriting checkout logic.</p>
+    </div>
+    <div class="concept-card gold">
+      <h4>Strategy</h4>
+      <p><code>StoreFirstStrategy</code> vs <code>WarehouseStrategy</code>. Same <code>pick(options)</code> interface. Demo uses store-first: prefer <code>store-wadsa</code> if it has qty.</p>
+    </div>
+    <div class="concept-card purple">
+      <h4>Factory</h4>
+      <p><code>OrderStateFactory::create("paid")</code> returns a small state object whose <code>name()</code> we log. It is a real factory, not a full State-machine with transitions in the classes.</p>
+    </div>
+  </div>
+  <div class="tip-box"><strong>If they push on factory:</strong> “States are used for logging/metrics naming. Transitions live in SQL (reserved → committed/expired). I would put transition methods on the state objects if the workflow grew.” That is honest and better than overselling.</div>
+
+  <div class="subsection">
+    <h3>Demand restock — not ML</h3>
+    <p class="sec-intro"><code>target = paid_qty_for_sku + 4</code>. If on-hand &lt; target, suggest the difference. It uses order history. Call it a <strong>heuristic</strong>, not a forecast model.</p>
+  </div>
+</div>
+
+<div id="tech" class="section">
+  <div class="sec-label">09</div>
+  <h2 class="sec-title">Tech stack — why</h2>
+  <div class="comparison-table">
+    <table>
+      <tr><th>Choice</th><th>Why</th><th>Not this</th></tr>
+      <tr><td><strong>C++17</strong></td><td>Threads, mutex, heap, same language as MatchBook / Pace.</td><td>Python checkout (GIL, weaker systems signal).</td></tr>
+      <tr><td><strong>PostgreSQL + libpq</strong></td><td>Transactions, FOR UPDATE, indexes, durability.</td><td>SQLite (weaker concurrent writers). Redis-only (RAM, not the catalog of record).</td></tr>
+      <tr><td><strong>CMake</strong></td><td>Finds PostgreSQL headers/libs.</td><td></td></tr>
+      <tr><td><strong>atomics in Metrics</strong></td><td>Counters from many threads without a metrics mutex.</td><td></td></tr>
+    </table>
+  </div>
+</div>
+
+<div id="files" class="section">
+  <div class="sec-label">10</div>
+  <h2 class="sec-title">File map</h2>
+  <div class="comparison-table">
+    <table>
+      <tr><th>File</th><th>Open when they ask…</th></tr>
+      <tr><td><code>sql/schema.sql</code></td><td>Tables and indexes</td></tr>
+      <tr><td><code>src/Repository.cpp</code></td><td>BEGIN / FOR UPDATE / COMMIT</td></tr>
+      <tr><td><code>src/ReservationService.cpp</code></td><td>End-to-end reserve / pay / expire</td></tr>
+      <tr><td><code>src/HoldHeap.cpp</code></td><td>Worker thread, wait_until, min-heap</td></tr>
+      <tr><td><code>src/Fulfillment.cpp</code></td><td>Store vs warehouse</td></tr>
+      <tr><td><code>src/OrderState.cpp</code></td><td>Factory</td></tr>
+      <tr><td><code>src/DemandForecast.cpp</code></td><td>Restock formula</td></tr>
+      <tr><td><code>src/main.cpp</code></td><td>Three-thread demo</td></tr>
+    </table>
+  </div>
+</div>
+
+<div id="honest" class="section">
+  <div class="sec-label">11</div>
+  <h2 class="sec-title">Honesty — resume vs code</h2>
+  <div class="highlight-box">
+    <strong>Resume is true:</strong> catalog/stock in Postgres, transactions, row locks, indexes; reserve then pay/commit or release; threads, mutexes, min-heap for hold expiry; repository, store-versus-warehouse, order-state factory; logging, metrics, demand-based restock.
+    <br><br>
+    <strong>Do not add:</strong> “tests for double-buy / last unit / stock=0” — those unit tests are not in the repo. The <em>mechanism</em> (FOR UPDATE) is. The demo is not a formal test suite.
+    <br><br>
+    <strong>Do not call restock ML.</strong> It is paid-qty + 4 cover units.
+  </div>
+  <div class="split-two">
+    <div class="concept-card green">
+      <h4>Tesco angle</h4>
+      <p>Retail checkout, catalog, DBMS, LLD patterns, logging. Speak SQL and OOP first.</p>
+    </div>
+    <div class="concept-card">
+      <h4>Pace angle</h4>
+      <p>This is project #3. Lead with threads, mutex, heap, why row lock ≠ mutex. Then say grocery is the domain, not the point.</p>
+    </div>
+  </div>
+</div>
+
+<div id="qa" class="section">
+  <div class="sec-label">12</div>
+  <h2 class="sec-title">Likely questions</h2>
+  <div class="qa-block">
+    <div class="qa"><div class="q">Q: Walk me through ShelfLock.</div><div class="a">Pitch. Draw products/stock/holds/orders. Recite reserve SQL. Heap expires unpaid holds. Demo: 2 pay, 1 expire.</div></div>
+    <div class="qa"><div class="q">Q: What does FOR UPDATE do?</div><div class="a">Locks the selected row until the transaction ends. Other transactions that want that row for update block. Prevents lost updates on qty.</div></div>
+    <div class="qa"><div class="q">Q: Isolation level?</div><div class="a">I did not set one, so Postgres default <strong>READ COMMITTED</strong>. FOR UPDATE still serialises writers on that row. I would mention SERIALIZABLE only if we needed to lock a predicate of many rows.</div></div>
+    <div class="qa"><div class="q">Q: Why decrement stock at reserve, not at pay?</div><div class="a">So the unit cannot be reserved by someone else during payment. Cost: abandoned carts need expiry to put stock back.</div></div>
+    <div class="qa"><div class="q">Q: Mutex vs row lock?</div><div class="a">Mutex = one PGconn. Row lock = inventory truth across processes.</div></div>
+    <div class="qa"><div class="q">Q: What if pay and expire race?</div><div class="a">Both take FOR UPDATE on the hold. One wins. If pay commits first, expire sees status≠reserved and no-ops. If expire wins, pay no-ops. No double restore.</div></div>
+    <div class="qa"><div class="q">Q: Why a heap not a sleep(ttl) per hold?</div><div class="a">One thread per hold does not scale. One worker + min-heap of deadlines does.</div></div>
+    <div class="qa"><div class="q">Q: Is restock machine learning?</div><div class="a">No. Sum of paid qty plus a cover of 4 units compared to on-hand.</div></div>
+    <div class="qa"><div class="q">Q: How is this different from MatchBook?</div><div class="a">MatchBook never hits a disk on the hot path. ShelfLock must, because inventory is shared durable state. Threads here are checkout + timer, not matching.</div></div>
+  </div>
+</div>
+
+<div id="improve" class="section">
+  <div class="sec-label">13</div>
+  <h2 class="sec-title">If they ask “what next?”</h2>
+  <div class="concept-grid three-col">
+    <div class="concept-card"><h4>Connection pool</h4><p>One PGconn + mutex is a bottleneck. Pool = one connection per worker, still FOR UPDATE in DB.</p></div>
+    <div class="concept-card gold"><h4>Tests</h4><p>Two threads, stock=1, assert only one commit. Zero stock reserve fails. Expire after pay is no-op.</p></div>
+    <div class="concept-card green"><h4>Heap cleanup</h4><p>Remove paid ids so the timer does not wake for dead holds.</p></div>
+  </div>
+</div>
+
+<div id="quick" class="section">
+  <div class="sec-label">14</div>
+  <h2 class="sec-title">Quick hits</h2>
+  <div class="stat-row">
+    <div class="stat"><div class="num">4 tables</div><div class="lbl">Schema</div></div>
+    <div class="stat"><div class="num">FOR UPDATE</div><div class="lbl">Stock row</div></div>
+    <div class="stat"><div class="num">3 s</div><div class="lbl">Demo TTL</div></div>
+    <div class="stat"><div class="num">min-heap</div><div class="lbl">Expiry</div></div>
+    <div class="stat"><div class="num">store-first</div><div class="lbl">Demo strategy</div></div>
+  </div>
+  <div class="script-box">One line: “C++ checkout service: Postgres row-lock reserve, pay or heap-expire, store-vs-warehouse pick, factory states, logs and restock from paid history.”</div>
+</div>
+
+</div>
+<button class="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</body>
+</html>
