@@ -1,8 +1,8 @@
 # ShelfLock
 
-C++ and PostgreSQL inventory system that manages catalog, stock holds, and checkout.
+Concurrent C++ and PostgreSQL inventory system that manages catalog, stock holds, and checkout.
 
-Holds stock during checkout. Unpaid holds expire. Paid holds become orders.
+A hold reserves stock during checkout. Unpaid holds expire and return the quantity. Paid holds become orders.
 
 ## Stack
 
