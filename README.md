@@ -24,6 +24,8 @@ A hold reserves stock during checkout. Unpaid holds expire and return the quanti
 
 ## Run
 
+Needs CMake 3.16 or newer, a C++17 compiler, and the libpq development headers, which CMake locates with `find_package(PostgreSQL REQUIRED)`.
+
 ```bash
 createdb shelflock
 cmake -S . -B build
@@ -31,6 +33,8 @@ cmake --build build
 # from the repo root so sql/ paths resolve
 ./build/shelflock
 ```
+
+Create the database only. On start the program applies `sql/schema.sql` and then `sql/seed.sql` itself, so there is no manual `psql -f` step.
 
 Windows: install PostgreSQL, then set `PostgreSQL_ROOT` before CMake. Override the database with:
 
