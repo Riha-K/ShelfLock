@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(PostgreSQL REQUIRED)
+find_package(Threads REQUIRED)
 
 add_executable(shelflock
     src/Logger.cpp
@@ -19,4 +20,4 @@ add_executable(shelflock
 )
 
 target_include_directories(shelflock PRIVATE include ${PostgreSQL_INCLUDE_DIRS})
-target_link_libraries(shelflock PRIVATE ${PostgreSQL_LIBRARIES})
+target_link_libraries(shelflock PRIVATE ${PostgreSQL_LIBRARIES} Threads::Threads)
