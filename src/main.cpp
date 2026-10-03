@@ -15,7 +15,9 @@ namespace {
 
 std::string conninfoFromEnv() {
     if (const char* dsn = std::getenv("SHELFLOCK_DSN")) {
-        return dsn;
+        if (dsn[0] != '\0') {
+            return dsn;
+        }
     }
     return "dbname=shelflock";
 }

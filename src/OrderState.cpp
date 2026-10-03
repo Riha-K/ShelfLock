@@ -1,5 +1,6 @@
 #include "OrderState.h"
 
+#include <cctype>
 #include <stdexcept>
 
 const char* CreatedState::name() const { return "created"; }
@@ -9,10 +10,15 @@ const char* ReleasedState::name() const { return "released"; }
 const char* ExpiredState::name() const { return "expired"; }
 
 std::unique_ptr<OrderState> OrderStateFactory::create(const std::string& state) {
-    if (state == "created") return std::make_unique<CreatedState>();
-    if (state == "reserved") return std::make_unique<ReservedState>();
-    if (state == "paid") return std::make_unique<PaidState>();
-    if (state == "released") return std::make_unique<ReleasedState>();
-    if (state == "expired") return std::make_unique<ExpiredState>();
+    std::string key;
+    key.reserve(state.size());
+    for (unsigned char c : state) {
+        key.push_back(static_cast<char>(std::tolower(c)));
+    }
+    if (key == "created") return std::make_unique<CreatedState>();
+    if (key == "reserved") return std::make_unique<ReservedState>();
+    if (key == "paid") return std::make_unique<PaidState>();
+    if (key == "released") return std::make_unique<ReleasedState>();
+    if (key == "expired") return std::make_unique<ExpiredState>();
     throw std::invalid_argument("unknown order state: " + state);
 }

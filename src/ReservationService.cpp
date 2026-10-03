@@ -13,9 +13,16 @@ ReservationService::ReservationService(InventoryRepository& repo, Logger& logger
       metrics_(metrics),
       strategy_(std::move(strategy)),
       ttl_seconds_(ttl_seconds),
-      heap_([this](std::int64_t hold_id) { expireHold(hold_id); }) {}
+      heap_([this](std::int64_t hold_id) { expireHold(hold_id); }) {
+    if (ttl_seconds_ < 1) {
+        throw std::invalid_argument("ttl must be positive");
+    }
+}
 
 HoldRecord ReservationService::reserve(const std::string& sku, int qty) {
+    if (qty < 1) {
+        throw std::invalid_argument("qty must be positive");
+    }
     const auto options = repo_.locationsWithStock(sku, qty);
     if (options.empty()) {
         throw std::runtime_error("no location has enough stock for " + sku);
