@@ -1,5 +1,8 @@
 #include "HoldHeap.h"
 
+#include <exception>
+#include <iostream>
+
 HoldHeap::HoldHeap(ExpireFn on_expire) : on_expire_(std::move(on_expire)), thread_([this] { worker(); }) {}
 
 HoldHeap::~HoldHeap() { stop(); }
@@ -47,7 +50,11 @@ void HoldHeap::worker() {
         }
         heap_.pop();
         lock.unlock();
-        on_expire_(next.hold_id);
+        try {
+            on_expire_(next.hold_id);
+        } catch (const std::exception& ex) {
+            std::cerr << "hold expiry failed for " << next.hold_id << ": " << ex.what() << '\n';
+        }
         lock.lock();
     }
 }

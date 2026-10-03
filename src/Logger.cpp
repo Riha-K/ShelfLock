@@ -26,5 +26,7 @@ void Logger::info(const std::string& event, const std::string& detail) {
     std::ofstream out(path_, std::ios::app);
     if (out) {
         out << line.str() << '\n';
+    } else {
+        std::cerr << "log file unavailable: " << path_ << '\n';
     }
 }

@@ -219,9 +219,10 @@ int InventoryRepository::onHand(const std::string& sku) {
     const char* values[] = {sku.c_str()};
     std::lock_guard<std::mutex> lock(mu_);
     PGresult* res = execParams("SELECT COALESCE(SUM(qty),0) FROM stock WHERE sku=$1", 1, values);
-    const int qty = std::stoi(PQgetvalue(res, 0, 0));
+    const char* text = PQgetvalue(res, 0, 0);
+    const std::string raw = text ? text : "0";
     PQclear(res);
-    return qty;
+    return std::stoi(raw);
 }
 
 int InventoryRepository::committedQty(const std::string& sku) {
@@ -229,7 +230,8 @@ int InventoryRepository::committedQty(const std::string& sku) {
     std::lock_guard<std::mutex> lock(mu_);
     PGresult* res = execParams(
         "SELECT COALESCE(SUM(qty),0) FROM orders WHERE sku=$1 AND state='paid'", 1, values);
-    const int qty = std::stoi(PQgetvalue(res, 0, 0));
+    const char* text = PQgetvalue(res, 0, 0);
+    const std::string raw = text ? text : "0";
     PQclear(res);
-    return qty;
+    return std::stoi(raw);
 }

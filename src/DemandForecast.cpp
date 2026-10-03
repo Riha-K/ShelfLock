@@ -9,7 +9,8 @@ std::vector<RestockHint> DemandForecast::suggest(const std::vector<std::string>&
         hint.sku = sku;
         hint.on_hand = repo_.onHand(sku);
         hint.recent_demand = repo_.committedQty(sku);
-        const int target = hint.recent_demand + cover_units;
+        const int cover = cover_units < 0 ? 0 : cover_units;
+        const int target = hint.recent_demand + cover;
         if (hint.on_hand < target) {
             hint.suggested_qty = target - hint.on_hand;
             hints.push_back(hint);
