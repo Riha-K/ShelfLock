@@ -32,19 +32,32 @@ int main() {
 
         ReservationService service(repo, logger, metrics, std::make_unique<StoreFirstStrategy>(), 3);
 
+        auto run = [&](auto&& fn) {
+            try {
+                fn();
+            } catch (const std::exception& ex) {
+                logger.info("worker_error", ex.what());
+            }
+        };
         std::vector<std::thread> workers;
         workers.emplace_back([&] {
-            const HoldRecord a = service.reserve("MILK-1L", 1);
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            service.pay(a.hold_id);
+            run([&] {
+                const HoldRecord a = service.reserve("MILK-1L", 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                service.pay(a.hold_id);
+            });
         });
         workers.emplace_back([&] {
-            const HoldRecord b = service.reserve("MILK-1L", 1);
-            service.pay(b.hold_id);
+            run([&] {
+                const HoldRecord b = service.reserve("MILK-1L", 1);
+                service.pay(b.hold_id);
+            });
         });
         workers.emplace_back([&] {
-            service.reserve("MILK-1L", 1);
-            std::this_thread::sleep_for(std::chrono::seconds(4));
+            run([&] {
+                service.reserve("MILK-1L", 1);
+                std::this_thread::sleep_for(std::chrono::seconds(4));
+            });
         });
 
         for (auto& worker : workers) {
