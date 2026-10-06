@@ -42,4 +42,4 @@ Windows: install PostgreSQL, then set `PostgreSQL_ROOT` before CMake. Override t
 set SHELFLOCK_DSN=host=localhost dbname=shelflock user=postgres password=YOUR_PASSWORD
 ```
 
-Do not commit passwords.
+An empty `SHELFLOCK_DSN` is ignored, and the program keeps `dbname=shelflock`. Do not commit passwords.
