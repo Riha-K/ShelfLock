@@ -22,7 +22,7 @@ void Logger::info(const std::string& event, const std::string& detail) {
     line << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " [" << event << "] " << detail;
 
     std::lock_guard<std::mutex> lock(mu_);
-    std::cout << line.str() << '\n';
+    std::cout << line.str() << std::endl;
     std::ofstream out(path_, std::ios::app);
     if (out) {
         out << line.str() << '\n';
