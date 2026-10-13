@@ -9,6 +9,7 @@
 #include <thread>
 #include <vector>
 
+// One worker sleeps until the soonest hold expiry.
 class HoldHeap {
 public:
     using Clock = std::chrono::steady_clock;
