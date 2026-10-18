@@ -7,7 +7,7 @@ struct HoldRecord {
     std::int64_t hold_id = 0;
     std::string sku;
     std::string location_id;
-    int qty = 0;
+    int qty = 0;  // units reserved while checkout is open
 };
 
 struct LocationPick {
