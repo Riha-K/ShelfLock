@@ -1,7 +1,8 @@
 INSERT INTO products (sku, name) VALUES
     ('MILK-1L', 'Toned Milk 1L'),
     ('BREAD-W', 'White Bread'),
-    ('EGGS-12', 'Eggs Dozen')
+    ('EGGS-12', 'Eggs Dozen'),
+    ('BUTTER-500', 'Butter 500g')
 ON CONFLICT (sku) DO NOTHING;
 
 INSERT INTO stock (sku, location_id, location_type, qty) VALUES
