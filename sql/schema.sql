@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS stock (
 );
 
 CREATE INDEX IF NOT EXISTS idx_stock_sku ON stock (sku);
+-- Lookup by sku when choosing store vs warehouse stock.
 
 CREATE TABLE IF NOT EXISTS holds (
     hold_id BIGSERIAL PRIMARY KEY,
