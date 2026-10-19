@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <string>
 
+// Counters for reservation lifecycle events.
+
 class Metrics {
 public:
     void incReserved();
