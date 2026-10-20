@@ -1,5 +1,7 @@
 #pragma once
 
+// Simple demand forecast helpers.
+
 #include "Repository.h"
 
 #include <string>
