@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+// Strategies for choosing a fulfillment location.
+
 class FulfillmentStrategy {
 public:
     virtual ~FulfillmentStrategy() = default;
