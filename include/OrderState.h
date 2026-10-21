@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+// State pattern for order lifecycle.
 class OrderState {
 public:
     virtual ~OrderState() = default;
