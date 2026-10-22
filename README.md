@@ -43,3 +43,25 @@ set SHELFLOCK_DSN=host=localhost dbname=shelflock user=postgres password=YOUR_PA
 ```
 
 An empty `SHELFLOCK_DSN` is ignored, and the program keeps `dbname=shelflock`. Do not commit passwords.
+
+## Design notes
+
+### Why a hold exists
+Checkout is not instant. While the buyer pays, stock must not be sold twice. A **hold** lowers available quantity, records a deadline, and either becomes a paid order or expires and restores stock.
+
+### Concurrency
+- Stock rows are locked with `SELECT ... FOR UPDATE` inside a transaction so two reserve calls cannot oversell the same SKU.
+- An expiry worker watches a min-heap of hold deadlines and releases unpaid holds when their TTL ends.
+- Logging and metrics are shared across reserve / pay / expire paths so you can see reserved vs committed vs expired counts.
+
+### Main pieces
+| Piece | Role |
+| --- | --- |
+| `InventoryRepository` | Postgres access for products, stock, holds, orders |
+| `FulfillmentStrategy` | Choose store vs warehouse when reserving |
+| `ReservationService` | Orchestrates reserve, pay, expire, restock hints |
+| `HoldHeap` | Deadline ordering for the expiry worker |
+| `OrderState` | Simple state names for order lifecycle |
+
+### Honest limits
+This is a teaching / portfolio system: one process, one database, grocery-style seed data. It is not a multi-region inventory platform.
