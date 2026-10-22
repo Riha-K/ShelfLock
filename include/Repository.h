@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+// PostgreSQL-backed inventory and hold persistence.
 class InventoryRepository {
 public:
     explicit InventoryRepository(std::string conninfo);
