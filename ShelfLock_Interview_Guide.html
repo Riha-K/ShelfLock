@@ -452,6 +452,31 @@ COMMIT</div>
   </div>
 </div>
 
+<div id="holdheap" class="section">
+  <div class="sec-label">13b</div>
+  <h2 class="sec-title">HoldHeap — say this clearly</h2>
+  <p class="sec-intro">Interviewers often ask why expiry is a <strong>heap + one worker</strong> instead of <code>sleep(ttl)</code> per hold.</p>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <h4>Design</h4>
+      <ul>
+        <li>Each reserve pushes <code>(expiry, hold_id)</code> into a min-heap.</li>
+        <li>One worker waits until the soonest deadline (condition variable).</li>
+        <li>On wake, call expire: <code>FOR UPDATE</code> the hold; restore stock only if still reserved.</li>
+      </ul>
+    </div>
+    <div class="concept-card gold">
+      <h4>Why this shape</h4>
+      <ul>
+        <li>One thread per hold does not scale and is hard to shut down cleanly.</li>
+        <li>DB row lock is the source of truth; the heap is only a timer.</li>
+        <li>Expire must be idempotent if pay already committed.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tip-box"><strong>One sentence:</strong> “The heap wakes me when a hold might expire; Postgres decides whether stock actually returns.”</div>
+</div>
+
 <div id="quick" class="section">
   <div class="sec-label">14</div>
   <h2 class="sec-title">Quick hits</h2>
