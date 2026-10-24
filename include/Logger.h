@@ -3,7 +3,7 @@
 #include <mutex>
 #include <string>
 
-// Each event is written to the console and appended to the log file.
+// Each event is written to the console and appended to the log file (thread-safe).
 class Logger {
 public:
     explicit Logger(std::string path = "shelflock.log");
