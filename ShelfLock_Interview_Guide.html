@@ -392,16 +392,18 @@ COMMIT</div>
   <div class="comparison-table">
     <table>
       <tr><th>File</th><th>Open when they ask…</th></tr>
-      <tr><td><code>sql/schema.sql</code></td><td>Tables and indexes</td></tr>
+      <tr><td><code>sql/schema.sql</code></td><td>Tables and indexes (also applied on startup)</td></tr>
+      <tr><td><code>sql/seed.sql</code></td><td>Demo seed data applied with schema on startup</td></tr>
       <tr><td><code>src/Repository.cpp</code></td><td>BEGIN / FOR UPDATE / COMMIT</td></tr>
       <tr><td><code>src/ReservationService.cpp</code></td><td>End-to-end reserve / pay / expire</td></tr>
       <tr><td><code>src/HoldHeap.cpp</code></td><td>Worker thread, wait_until, min-heap</td></tr>
       <tr><td><code>src/Fulfillment.cpp</code></td><td>Store vs warehouse</td></tr>
       <tr><td><code>src/OrderState.cpp</code></td><td>Factory</td></tr>
       <tr><td><code>src/DemandForecast.cpp</code></td><td>Restock formula</td></tr>
-      <tr><td><code>src/main.cpp</code></td><td>Three-thread demo</td></tr>
+      <tr><td><code>src/main.cpp</code></td><td>Three-thread demo; applies schema + seed</td></tr>
     </table>
   </div>
+  <div class="tip-box"><strong>Run note:</strong> Connection via <code>SHELFLOCK_DSN</code> (see README). On Windows you may need <code>PostgreSQL_ROOT</code> for CMake to find libpq. The binary bootstraps <code>schema.sql</code> + <code>seed.sql</code> — you do not have to apply SQL by hand before the demo.</div>
 </div>
 
 <div id="honest" class="section">
