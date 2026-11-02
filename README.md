@@ -65,3 +65,5 @@ Checkout is not instant. While the buyer pays, stock must not be sold twice. A *
 
 ### Honest limits
 This is a teaching / portfolio system: one process, one database, grocery-style seed data. It is not a multi-region inventory platform.
+
+<!-- refreshed: 2026-11-02 -->
