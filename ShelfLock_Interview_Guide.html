@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShelfLock — Interview Guide | Riha Sanjay Kokode</title>
+<title>ShelfLock - Interview Guide | Riha Sanjay Kokode</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0c10;--surface:#111318;--card:#161a22;--border:#232836;--text:#dde3f0;--muted:#6b7694;--bright:#fff;--blue:#5b9cf6;--gold:#f0b429;--green:#3ecf8e;--red:#f04e4e;--purple:#b57bee;--teal:#38d9d9;}
@@ -148,14 +148,14 @@ body{background:var(--bg);color:var(--text);font-family:'Lora',Georgia,serif;fon
     <div class="six-item"><div class="n">10 min</div><h5>Pitch + schema</h5><p>Four tables. Point at stock row + holds row.</p></div>
     <div class="six-item"><div class="n">15 min</div><h5>Reserve SQL</h5><p>BEGIN, FOR UPDATE, decrement, insert hold, COMMIT. Say it without notes.</p></div>
     <div class="six-item"><div class="n">10 min</div><h5>Two locks + heap</h5><p>Mutex = libpq not thread-safe. Row lock = inventory truth. Heap wakes the expiry worker.</p></div>
-    <div class="six-item"><div class="n">10 min</div><h5>OOP names</h5><p>Repository, store-vs-warehouse strategy, order-state factory — what each file does.</p></div>
+    <div class="six-item"><div class="n">10 min</div><h5>OOP names</h5><p>Repository, store-vs-warehouse strategy, order-state factory - what each file does.</p></div>
     <div class="six-item"><div class="n">5 min</div><h5>Honesty</h5><p>Restock is not ML. Resume does not claim double-buy tests.</p></div>
   </div>
 </div>
 
 <div id="zero" class="section">
   <div class="sec-label">01</div>
-  <h2 class="sec-title">From zero — the grocery problem</h2>
+  <h2 class="sec-title">From zero - the grocery problem</h2>
   <p class="sec-intro">One carton of milk left. Two phones tap Pay at the same time. If both see qty=1, both think they bought it. <strong>ShelfLock holds the unit</strong> for a few seconds while payment finishes. If payment never comes, the hold expires and the milk goes back on the shelf.</p>
 
   <div class="concept-grid">
@@ -266,7 +266,7 @@ flowchart TB
 
 <div id="flow" class="section">
   <div class="sec-label">05</div>
-  <h2 class="sec-title">Reserve, pay, expire — SQL you must recite</h2>
+  <h2 class="sec-title">Reserve, pay, expire - SQL you must recite</h2>
 
   <div class="subsection">
     <h3>Reserve (hot path)</h3>
@@ -285,7 +285,7 @@ COMMIT</div>
 
   <div class="subsection">
     <h3>Pay</h3>
-    <p>Lock the hold row. If status is still <code>reserved</code>, set it <code>committed</code>, insert <code>orders</code> with state <code>paid</code>. Stock was already reduced at reserve — do not reduce again.</p>
+    <p>Lock the hold row. If status is still <code>reserved</code>, set it <code>committed</code>, insert <code>orders</code> with state <code>paid</code>. Stock was already reduced at reserve - do not reduce again.</p>
   </div>
 
   <div class="subsection">
@@ -309,7 +309,7 @@ COMMIT</div>
 
 <div id="locks" class="section">
   <div class="sec-label">06</div>
-  <h2 class="sec-title">Two locks — do not mix them up</h2>
+  <h2 class="sec-title">Two locks - do not mix them up</h2>
   <div class="split-two">
     <div class="concept-card gold">
       <h4>C++ mutex on PGconn</h4>
@@ -349,7 +349,7 @@ COMMIT</div>
 
 <div id="oop" class="section">
   <div class="sec-label">08</div>
-  <h2 class="sec-title">OOP — only what the code really does</h2>
+  <h2 class="sec-title">OOP - only what the code really does</h2>
   <div class="concept-grid three-col">
     <div class="concept-card">
       <h4>Repository</h4>
@@ -367,14 +367,14 @@ COMMIT</div>
   <div class="tip-box"><strong>If they push on factory:</strong> “States are used for logging/metrics naming. Transitions live in SQL (reserved → committed/expired). I would put transition methods on the state objects if the workflow grew.” That is honest and better than overselling.</div>
 
   <div class="subsection">
-    <h3>Demand restock — not ML</h3>
+    <h3>Demand restock - not ML</h3>
     <p class="sec-intro"><code>target = paid_qty_for_sku + 4</code>. If on-hand &lt; target, suggest the difference. It uses order history. Call it a <strong>heuristic</strong>, not a forecast model.</p>
   </div>
 </div>
 
 <div id="tech" class="section">
   <div class="sec-label">09</div>
-  <h2 class="sec-title">Tech stack — why</h2>
+  <h2 class="sec-title">Tech stack - why</h2>
   <div class="comparison-table">
     <table>
       <tr><th>Choice</th><th>Why</th><th>Not this</th></tr>
@@ -403,16 +403,16 @@ COMMIT</div>
       <tr><td><code>src/main.cpp</code></td><td>Three-thread demo; applies schema + seed</td></tr>
     </table>
   </div>
-  <div class="tip-box"><strong>Run note:</strong> Connection via <code>SHELFLOCK_DSN</code> (see README). On Windows you may need <code>PostgreSQL_ROOT</code> for CMake to find libpq. The binary bootstraps <code>schema.sql</code> + <code>seed.sql</code> — you do not have to apply SQL by hand before the demo.</div>
+  <div class="tip-box"><strong>Run note:</strong> Connection via <code>SHELFLOCK_DSN</code> (see README). On Windows you may need <code>PostgreSQL_ROOT</code> for CMake to find libpq. The binary bootstraps <code>schema.sql</code> + <code>seed.sql</code> - you do not have to apply SQL by hand before the demo.</div>
 </div>
 
 <div id="honest" class="section">
   <div class="sec-label">11</div>
-  <h2 class="sec-title">Honesty — resume vs code</h2>
+  <h2 class="sec-title">Honesty - resume vs code</h2>
   <div class="highlight-box">
     <strong>Resume is true:</strong> catalog/stock in Postgres, transactions, row locks, indexes; reserve then pay/commit or release; threads, mutexes, min-heap for hold expiry; repository, store-versus-warehouse, order-state factory; logging, metrics, demand-based restock.
     <br><br>
-    <strong>Do not add:</strong> “tests for double-buy / last unit / stock=0” — those unit tests are not in the repo. The <em>mechanism</em> (FOR UPDATE) is. The demo is not a formal test suite.
+    <strong>Do not add:</strong> “tests for double-buy / last unit / stock=0” - those unit tests are not in the repo. The <em>mechanism</em> (FOR UPDATE) is. The demo is not a formal test suite.
     <br><br>
     <strong>Do not call restock ML.</strong> It is paid-qty + 4 cover units.
   </div>
@@ -456,7 +456,7 @@ COMMIT</div>
 
 <div id="holdheap" class="section">
   <div class="sec-label">13b</div>
-  <h2 class="sec-title">HoldHeap — say this clearly</h2>
+  <h2 class="sec-title">HoldHeap - say this clearly</h2>
   <p class="sec-intro">Interviewers often ask why expiry is a <strong>heap + one worker</strong> instead of <code>sleep(ttl)</code> per hold.</p>
   <div class="concept-grid">
     <div class="concept-card">

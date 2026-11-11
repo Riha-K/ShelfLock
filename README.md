@@ -12,15 +12,15 @@ A hold reserves stock during checkout. Unpaid holds expire and return the quanti
 
 ## Flow
 
-1. **Reserve** — pick store or warehouse, lock the stock row, reduce qty, insert a hold.
-2. **Pay** — mark the hold committed and write a paid order.
-3. **Release / expire** — a worker thread uses a min-heap of hold deadlines. If nobody pays in time, stock is put back.
+1. **Reserve** - pick store or warehouse, lock the stock row, reduce qty, insert a hold.
+2. **Pay** - mark the hold committed and write a paid order.
+3. **Release / expire** - a worker thread uses a min-heap of hold deadlines. If nobody pays in time, stock is put back.
 
 ## Layout
 
-- `sql/schema.sql` — products, stock, holds, orders
-- `sql/seed.sql` — sample grocery SKUs
-- `include/` / `src/` — repository, store-vs-warehouse strategy, order-state factory, logging, metrics, demand restock
+- `sql/schema.sql` - products, stock, holds, orders
+- `sql/seed.sql` - sample grocery SKUs
+- `include/` / `src/` - repository, store-vs-warehouse strategy, order-state factory, logging, metrics, demand restock
 
 ## Run
 
